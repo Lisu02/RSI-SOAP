@@ -1,12 +1,12 @@
 package org.example.wssoapprojekt.service;
 
 import jakarta.jws.WebService;
-import org.example.wssoapprojekt.ws.endpoint.Movie;
+import org.example.wssoapprojekt.ws.endpoint.MovieController;
 
 import java.util.List;
 
 @WebService(endpointInterface = "org.example.wssoapprojekt.ws.endpoint")
-public class MovieService implements Movie {
+public class MovieService implements MovieController {
 
     @Override
     public void addMovie() {
@@ -14,12 +14,12 @@ public class MovieService implements Movie {
     }
 
     @Override
-    public Movie getMovie(String id) {
+    public MovieController getMovie(String id) {
         return null;
     }
 
     @Override
-    public List<Movie> getMovieList() {
+    public List<MovieController> getMovieList() {
         return List.of();
     }
 

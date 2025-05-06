@@ -6,6 +6,10 @@ import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlType;
 
 import java.time.LocalDate;
+import java.util.Random;
+
+import static org.example.wssoapprojekt.util.GlobalUtilities.random;
+
 /*
 Ogólnie te adnotacje @XmlElement nie są konieczne bo aplikacja sama je zmapuje do XML
 ale ma to znaczenie w przypadku kolejności ich wyświetlania albo jak byśmy chciali w przyszłości
@@ -15,6 +19,7 @@ coś konkretniejszego z nimi robić lub zmieniać nazwy itp
 @XmlType(propOrder = {"firstName","lastName","birthDay","countryOfOrigin"})
 public class Actor {
 
+    private Long id;
     @XmlElement
     private String firstName;
     @XmlElement
@@ -25,7 +30,9 @@ public class Actor {
     @XmlElement
     private Country countryOfOrigin;
 
-    public Actor(){}
+    public Actor(){
+        this("testName","testLastname",LocalDate.now(),Country.values()[random.nextInt(0,7)]);
+    }
 
     public Actor(String firstName, String lastName, LocalDate birthDay ,Country country){
         this.firstName = firstName;
@@ -33,6 +40,9 @@ public class Actor {
         this.birthDay = birthDay;
         this.countryOfOrigin = country;
     }
+
+    public Long getId(){return id;}
+    public void setId(Long id){this.id = id;}
 
     public String getFirstName() {return firstName;}
     public void setFirstName(String firstName) {this.firstName = firstName;}

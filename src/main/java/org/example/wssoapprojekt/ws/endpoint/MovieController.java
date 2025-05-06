@@ -8,11 +8,11 @@ import java.util.List;
 
 @WebService(name = "MovieService")
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL)
-public interface Movie {
+public interface MovieController {
 
     public void addMovie();
 
-    public Movie getMovie(String id);
+    public MovieController getMovie(String id);
 
-    public List<Movie> getMovieList();
+    public List<MovieController> getMovieList();
 }
