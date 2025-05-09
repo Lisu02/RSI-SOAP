@@ -1,27 +1,34 @@
 package org.example.wssoapprojekt.service;
 
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
+import org.example.wssoapprojekt.model.Movie;
 import org.example.wssoapprojekt.ws.endpoint.MovieController;
 
 import java.util.List;
 
-@WebService(endpointInterface = "org.example.wssoapprojekt.ws.endpoint")
+@WebService(endpointInterface = "org.example.wssoapprojekt.ws.endpoint.MovieController")
 public class MovieService implements MovieController {
 
     @Override
-    public void addMovie() {
-
+    @WebMethod(operationName = "addMovie")
+    @WebResult(name = "addMovieResponse")
+    public void addMovie(Movie movie) {
+        // Logika dodawania filmu
     }
 
     @Override
-    public MovieController getMovie(String id) {
+    @WebMethod(operationName = "getMovie")
+    @WebResult(name = "getMovieResponse")
+    public Movie getMovie(String id) {
         return null;
     }
 
     @Override
-    public List<MovieController> getMovieList() {
+    @WebMethod(operationName = "getMovieList")
+    @WebResult(name = "getMovieListResponse")
+    public List<Movie> getMovieList() {
         return List.of();
     }
-
-
 }

@@ -1,8 +1,10 @@
 package org.example.wssoapprojekt.ws.endpoint;
 
 
+import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
+import org.example.wssoapprojekt.model.Movie;
 
 import java.util.List;
 
@@ -10,9 +12,12 @@ import java.util.List;
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL)
 public interface MovieController {
 
-    public void addMovie();
+    @WebMethod
+    public void addMovie(Movie movie); // Poprawiono
 
-    public MovieController getMovie(String id);
+    @WebMethod
+    public Movie getMovie(String id);
 
-    public List<MovieController> getMovieList();
+    @WebMethod
+    public List<Movie> getMovieList(); // Dodano spowrotem
 }
