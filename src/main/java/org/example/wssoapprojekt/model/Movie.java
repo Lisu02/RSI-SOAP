@@ -15,7 +15,8 @@ public class Movie {
     private Long id;
     private String title;
     private String director;
-    private String releaseDate; //Standard od Java 8 (sama data bez godziny)
+    @XmlSchemaType(name = "dateTime")
+    private LocalDate releaseDate; //Standard od Java 8 (sama data bez godziny)
     private String description;
     private MovieType movieType;
     private List<Actor> actorList;
@@ -25,7 +26,7 @@ public class Movie {
     * jest image a jako 'implementacja' dajemy File i potem ImageIO.read('wczytane zdjecie z pliku')
     * */
 
-    public Movie(Long id, String title, String director, String releaseDate, String description, MovieType movieType, DataHandler image) {
+    public Movie(Long id, String title, String director, LocalDate releaseDate, String description, MovieType movieType, DataHandler image) {
         this.id = id;
         this.title = title;
         this.director = director;
@@ -35,12 +36,12 @@ public class Movie {
         this.image = image;
     }
 
-    public Movie(String title, String director, String releaseDate, String description, MovieType movieType, DataHandler image) {
+    public Movie(String title, String director, LocalDate releaseDate, String description, MovieType movieType, DataHandler image) {
         this(0L,title, director, releaseDate,description,movieType,image);
     }
 
     public Movie(){
-        this(0L,"tytul","Andrzej Tralala","LocalDate.of(2002,8,26)","fajny film",MovieType.ACTION,null);
+        this(0L,"tytul","Andrzej Tralala",LocalDate.of(2002,8,26),"fajny film",MovieType.ACTION,null);
     }
 
     public Long getId() {
@@ -67,11 +68,11 @@ public class Movie {
         this.director = director;
     }
 
-    public String getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 

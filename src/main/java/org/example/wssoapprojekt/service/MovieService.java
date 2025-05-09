@@ -22,7 +22,7 @@ public class MovieService implements MovieController {
     @WebMethod(operationName = "getMovie")
     @WebResult(name = "getMovieResponse")
     public Movie getMovie(String id) {
-        return null;
+        return new Movie();
     }
 
     @Override

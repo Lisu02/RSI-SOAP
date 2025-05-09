@@ -23,16 +23,16 @@ public class Actor {
     @XmlElement
     private String lastName;
     @XmlElement
-  //  @XmlSchemaType(name = "dateTime")
-    private String birthDay;
+    @XmlSchemaType(name = "dateTime")
+    private  LocalDate birthDay;
     @XmlElement
     private Country countryOfOrigin;
 
     public Actor(){
-        this("testName","testLastname","LocalDate.now()",Country.values()[random.nextInt(0,7)]);
+        this("testName","testLastname",LocalDate.now(),Country.values()[random.nextInt(0,7)]);
     }
 
-    public Actor(String firstName, String lastName, String birthDay ,Country country){
+    public Actor(String firstName, String lastName, LocalDate birthDay ,Country country){
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDay = birthDay;
@@ -48,8 +48,8 @@ public class Actor {
     public String getLastName() {return lastName;}
     public void setLastName(String lastName) {this.lastName = lastName;}
 
-    public String getBirthDay() {return birthDay;}
-    public void setBirthDay(String birthDay) {this.birthDay = birthDay;}
+    public LocalDate getBirthDay() {return birthDay;}
+    public void setBirthDay(LocalDate birthDay) {this.birthDay = birthDay;}
 
     public Country getCountryOfOrigin() {return countryOfOrigin;}
     public void setCountryOfOrigin(Country countryOfOrigin) {this.countryOfOrigin = countryOfOrigin;}
