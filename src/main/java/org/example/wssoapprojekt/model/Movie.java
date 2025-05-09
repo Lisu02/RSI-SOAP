@@ -1,16 +1,19 @@
 package org.example.wssoapprojekt.model;
 
 import jakarta.activation.DataHandler;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 import java.time.LocalDate;
 import java.util.List;
-
+@XmlRootElement(name = "Movie")
+@XmlType(propOrder = {"title","director","releaseDate","description","movieType","actorList","image"})
 public class Movie {
 
     private Long id;
     private String title;
     private String director;
-    private LocalDate releseDate; //Standard od Java 8 (sama data bez godziny)
+    private LocalDate releaseDate; //Standard od Java 8 (sama data bez godziny)
     private String description;
     private MovieType movieType;
     private List<Actor> actorList;
@@ -20,18 +23,18 @@ public class Movie {
     * jest image a jako 'implementacja' dajemy File i potem ImageIO.read('wczytane zdjecie z pliku')
     * */
 
-    public Movie(Long id, String title, String director, LocalDate releseDate, String description, MovieType movieType, DataHandler image) {
+    public Movie(Long id, String title, String director, LocalDate releaseDate, String description, MovieType movieType, DataHandler image) {
         this.id = id;
         this.title = title;
         this.director = director;
-        this.releseDate = releseDate;
+        this.releaseDate = releaseDate;
         this.description = description;
         this.movieType = movieType;
         this.image = image;
     }
 
-    public Movie(String title, String director, LocalDate releseDate, String description, MovieType movieType, DataHandler image) {
-        this(0L,title, director,releseDate,description,movieType,image);
+    public Movie(String title, String director, LocalDate releaseDate, String description, MovieType movieType, DataHandler image) {
+        this(0L,title, director, releaseDate,description,movieType,image);
     }
 
     public Movie(){
@@ -62,12 +65,12 @@ public class Movie {
         this.director = director;
     }
 
-    public LocalDate getReleseDate() {
-        return releseDate;
+    public LocalDate getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setReleseDate(LocalDate releseDate) {
-        this.releseDate = releseDate;
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getDescription() {
