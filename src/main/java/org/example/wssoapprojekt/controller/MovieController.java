@@ -1,4 +1,4 @@
-package org.example.wssoapprojekt.ws.endpoint;
+package org.example.wssoapprojekt.controller;
 
 
 import jakarta.jws.WebMethod;

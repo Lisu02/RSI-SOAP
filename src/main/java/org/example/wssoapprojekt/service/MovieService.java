@@ -4,11 +4,11 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import org.example.wssoapprojekt.model.Movie;
-import org.example.wssoapprojekt.ws.endpoint.MovieController;
+import org.example.wssoapprojekt.controller.MovieController;
 
 import java.util.List;
 
-@WebService(endpointInterface = "org.example.wssoapprojekt.ws.endpoint.MovieController")
+@WebService(endpointInterface = "org.example.wssoapprojekt.controller.MovieController")
 public class MovieService implements MovieController {
 
     @Override

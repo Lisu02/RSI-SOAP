@@ -2,7 +2,6 @@ package org.example.wssoapprojekt.model;
 
 import jakarta.activation.DataHandler;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.*;
 
 import java.time.LocalDate;

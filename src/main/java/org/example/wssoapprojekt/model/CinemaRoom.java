@@ -1,6 +1,5 @@
 package org.example.wssoapprojekt.model;
 
-import org.example.wssoapprojekt.util.CinemaSlots;
 
 public class CinemaRoom {
 

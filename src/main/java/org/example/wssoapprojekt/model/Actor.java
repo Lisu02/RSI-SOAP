@@ -3,7 +3,6 @@ package org.example.wssoapprojekt.model;
 import jakarta.xml.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Random;
 
 import static org.example.wssoapprojekt.util.GlobalUtilities.random;
 

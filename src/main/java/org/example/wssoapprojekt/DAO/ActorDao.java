@@ -1,7 +1,6 @@
 package org.example.wssoapprojekt.DAO;
 
 import org.example.wssoapprojekt.model.Actor;
-import org.example.wssoapprojekt.model.Movie;
 
 import java.util.List;
 import java.util.Optional;

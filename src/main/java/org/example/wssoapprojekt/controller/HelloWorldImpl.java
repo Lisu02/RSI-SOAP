@@ -1,4 +1,4 @@
-package org.example.wssoapprojekt.ws.endpoint;
+package org.example.wssoapprojekt.controller;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebResult;
@@ -7,7 +7,7 @@ import jakarta.xml.ws.BindingType;
 import jakarta.xml.ws.soap.MTOM;
 import jakarta.xml.ws.soap.SOAPBinding;
 
-@WebService(endpointInterface = "org.example.wssoapprojekt.ws.endpoint.HelloWorld")
+@WebService(endpointInterface = "org.example.wssoapprojekt.controller.HelloWorld")
 //@HandlerChain(file = "handler-chain.xml") na razie bez handlera
 @MTOM
 @BindingType(value = SOAPBinding.SOAP11HTTP_MTOM_BINDING)
