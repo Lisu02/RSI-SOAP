@@ -1,6 +1,7 @@
 package org.example.wssoapprojekt.controller;
 
 
+import jakarta.activation.DataHandler;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
@@ -28,4 +29,10 @@ public interface MovieController {
             @WebParam(name = "actorId")Long actorId,
             @WebParam(name = "movieId")Long movieId
     );
+
+    @WebMethod
+    DataHandler getImage(@WebParam(name="filepath") String filepath);
+
+    @WebMethod
+    DataHandler getMovieImage(@WebParam(name = "movieId") Long movieId);
 }

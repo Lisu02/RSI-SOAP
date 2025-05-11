@@ -1,8 +1,13 @@
 package org.example.wssoapprojekt.service;
 
+import jakarta.activation.DataHandler;
 import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
+import jakarta.xml.bind.annotation.XmlMimeType;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.ws.BindingType;
 import jakarta.xml.ws.soap.MTOM;
 import org.example.wssoapprojekt.DAO.ActorDao;
 import org.example.wssoapprojekt.DAO.ActorDaoImpl;
@@ -16,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @WebService(endpointInterface = "org.example.wssoapprojekt.controller.MovieController")
+@BindingType(value = jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING)
 @MTOM
 public class MovieService implements MovieController {
 
@@ -59,4 +65,27 @@ public class MovieService implements MovieController {
         }
         return null;
     }
+
+    @Override
+    @WebMethod(operationName = "getImage")
+    @XmlSchemaType(name = "base64Binary")
+    @XmlMimeType("image/png")
+    public DataHandler getImage(@WebParam(name = "filepath") String filepath) {
+        return Movie.loadImageOrDefault(filepath);
+    }
+
+    @Override
+    @WebMethod(operationName = "getMovieImage")
+    @XmlSchemaType(name = "base64Binary")
+    @XmlMimeType("image/png")
+    public DataHandler getMovieImage(@WebParam(name = "movieId") Long movieId) {
+        Optional<Movie> movieOptional = movieDao.findById(movieId);
+        if(movieOptional.isPresent()){
+            String imagePath = movieOptional.get().getImagePath();
+            return Movie.loadImageOrDefault(imagePath);
+        }
+        throw new RuntimeException("No movie at provided id is present");
+    }
+
+
 }

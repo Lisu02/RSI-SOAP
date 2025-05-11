@@ -26,38 +26,38 @@ public class Movie {
     @XmlElementWrapper(name = "actorIdList")
     @XmlElement(name = "actorId")
     private List<Long> actorIdList;
-    @XmlMimeType("application/octet-stream")
-    private DataHandler image;
+    //@XmlMimeType("application/octet-stream")
+    private String image;
 
     /* Do zdjec NIEAKTUALNE NIEAKTUALNE
     * jest image a jako 'implementacja' dajemy File i potem ImageIO.read('wczytane zdjecie z pliku')
     * */
 
-    public DataHandler loadImageOrDefault(String pathToImage) {
+    public static DataHandler loadImageOrDefault(String pathToImage) {
         File file = new File(pathToImage);
         if (!file.exists()) {
-            file = new File("/path/to/default/images/no-image.png");
+            file = new File("images/shrek.png"); //default zdjecie
         }
         return new DataHandler(new FileDataSource(file));
     }
 
 
-    public Movie(Long id, String title, String director, String releaseDate, String description, MovieType movieType, DataHandler image) {
+    public Movie(Long id, String title, String director, String releaseDate, String description, MovieType movieType, String imagePath) {
         this.id = id;
         this.title = title;
         this.director = director;
         this.releaseDate = releaseDate;
         this.description = description;
         this.movieType = movieType;
-        this.image = image;
+        this.image = imagePath;
     }
 
-    public Movie(String title, String director, String releaseDate, String description, MovieType movieType, DataHandler image) {
-        this(0L,title, director, releaseDate,description,movieType,image);
+    public Movie(String title, String director, String releaseDate, String description, MovieType movieType, String imagePath) {
+        this(0L,title, director, releaseDate,description,movieType,imagePath);
     }
 
     public Movie(){
-        this(0L,"tytul","Andrzej Tralala","26-08-2002","fajny film",MovieType.ACTION,null);
+        this(0L,"tytul","Andrzej Tralala","26-08-2002","fajny film",MovieType.ACTION,"");
     }
 
     public Long getId() {
@@ -116,11 +116,11 @@ public class Movie {
         this.actorIdList = actorIdList;
     }
 
-    public DataHandler getImage() {
+    public String getImagePath() {
         return image;
     }
 
-    public void setImage(DataHandler image) {
-        this.image = image;
+    public void setImagePath(String imagePath) {
+        this.image = imagePath;
     }
 }
