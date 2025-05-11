@@ -39,21 +39,21 @@ public class Movie {
     * */
 
     public static DataHandler loadImageOrDefault(String pathToImage) {
-        File file = new File(pathToImage);
-        if (!file.exists() || pathToImage.isBlank()) {
-            try (InputStream is = Movie.class.getResourceAsStream("/images/shrek.png")) {
-                if (is == null) throw new RuntimeException("Default image not found in classpath");
-
-                // Zapisz tymczasowo, bo DataHandler potrzebuje pliku
-                Path temp = Files.createTempFile("default_shrek", ".png");
-                Files.copy(is, temp, StandardCopyOption.REPLACE_EXISTING);
-                return new DataHandler(new FileDataSource(temp.toFile()));
-            } catch (IOException e) {
-                throw new RuntimeException("Nie można załadować domyślnego obrazka", e);
-            }
+        if (pathToImage == null || pathToImage.isBlank()) {
+            pathToImage = "/images/shrek.png"; // domyślny obrazek
         }
-        return new DataHandler(new FileDataSource(file));
+
+        try (InputStream is = Movie.class.getResourceAsStream(pathToImage)) {
+            if (is == null) throw new RuntimeException("Obrazek nie został znaleziony w zasobach: " + pathToImage);
+
+            Path temp = Files.createTempFile("image_", ".png");
+            Files.copy(is, temp, StandardCopyOption.REPLACE_EXISTING);
+            return new DataHandler(new FileDataSource(temp.toFile()));
+        } catch (IOException e) {
+            throw new RuntimeException("Nie można załadować obrazka: " + pathToImage, e);
+        }
     }
+
 
 
 
