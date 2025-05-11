@@ -34,9 +34,10 @@ public class ReservationService implements ReservationController {
     @WebMethod(operationName = "createReservation")
     @WebResult(name = "createReservationResponse")
     public Reservation createReservation(Long showingId, Reservation reservation) {
-        if(showingDao.findById(showingId).isPresent()){
+        if(showingDao.findById(showingId).isPresent() && !reservation.getSeatLocation().isEmpty()){
             Showing showing = showingDao.findById(showingId).get();
             reservation.setShowing(showing);
+            showing.makeSeatReservation(reservation.getSeatLocation(),reservation.getReservationId());
             reservationDao.save(reservation);
         }
         return null;
@@ -47,6 +48,8 @@ public class ReservationService implements ReservationController {
     @WebResult(name = "deleteReservationResponse")
     public void deleteReservation(Long reservationId) {
         if(reservationDao.findById(reservationId).isPresent()){
+            Reservation reservation = reservationDao.findById(reservationId).get();
+            reservation.getShowing().removeAllSeatReservation(reservation);
             reservationDao.delete(reservationId);
         }
     }
