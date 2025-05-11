@@ -3,6 +3,7 @@ package org.example.wssoapprojekt.service;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
+import jakarta.xml.ws.soap.MTOM;
 import org.example.wssoapprojekt.DAO.ActorDao;
 import org.example.wssoapprojekt.DAO.ActorDaoImpl;
 import org.example.wssoapprojekt.DAO.MovieDao;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @WebService(endpointInterface = "org.example.wssoapprojekt.controller.MovieController")
+@MTOM
 public class MovieService implements MovieController {
 
     private final MovieDao movieDao = MovieDaoImpl.getMovieDaoInstance();
