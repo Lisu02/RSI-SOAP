@@ -5,24 +5,28 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.istack.ByteArrayDataSource;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
+import jakarta.xml.bind.annotation.XmlMimeType;
 import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.ws.BindingType;
 import jakarta.xml.ws.soap.MTOM;
 import org.example.wssoapprojekt.DAO.*;
 import org.example.wssoapprojekt.controller.ReservationController;
-import org.example.wssoapprojekt.model.Reservation;
-import org.example.wssoapprojekt.model.Showing;
+import org.example.wssoapprojekt.model.*;
 
 import java.io.ByteArrayOutputStream;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 @WebService(endpointInterface = "org.example.wssoapprojekt.controller.ReservationController")
 @BindingType(value = jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING)
-@MTOM(enabled = true, threshold = 1024)
+@MTOM(enabled = true, threshold = 0)
 public class ReservationService implements ReservationController {
 
     private final MovieDao movieDao = MovieDaoImpl.getMovieDaoInstance();
@@ -75,13 +79,32 @@ public class ReservationService implements ReservationController {
 
     @WebMethod(operationName = "getReservationPDF")
     @XmlSchemaType(name = "base64Binary")
+    @XmlMimeType("application/pdf")
     @Override
-    public byte[] getReservationPDF(Long reservationId) {
+    public DataHandler getReservationPDF(Long reservationId) {
         try {
             Optional<Reservation> optionalReservation = reservationDao.findById(reservationId);
             Reservation reservation;
             if (optionalReservation.isEmpty()) {
-                return null;
+                reservation = new Reservation();
+                Showing showing = new Showing();
+                showing.setShowingId(-1L);
+                showing.setShowingDateAndTime("Jutro");
+                Movie movie = new Movie(
+                        -1L,
+                        "Tytul",
+                        "Rezyser",
+                        "Wczoraj",
+                        "Opis",
+                        MovieType.ACTION,
+                        null
+                );
+                showing.setMovie(movie);
+                reservation.setShowing(showing);
+                LinkedList<SeatLocation> seatLocations = new LinkedList<SeatLocation>();
+                seatLocations.add(new SeatLocation(0,0));
+                seatLocations.add(new SeatLocation(1,1));
+                reservation.setSeatLocation(seatLocations);
             }else{
                 reservation = optionalReservation.get();
             }
@@ -107,7 +130,13 @@ public class ReservationService implements ReservationController {
             document.add(new Paragraph("Reserved seats (in progress): ", normalFont));
 
             document.close();
-            return baos.toByteArray();
+            byte[] pdfBytes = baos.toByteArray();
+
+            DataSource dataSource = new ByteArrayDataSource(pdfBytes, "application/pdf");
+            return new DataHandler(dataSource);
+
+
+            //return baos.toByteArray();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

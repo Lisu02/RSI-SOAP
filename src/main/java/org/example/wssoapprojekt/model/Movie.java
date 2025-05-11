@@ -1,9 +1,11 @@
 package org.example.wssoapprojekt.model;
 
 import jakarta.activation.DataHandler;
+import jakarta.activation.FileDataSource;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.*;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 @XmlRootElement(name = "Movie")
@@ -24,11 +26,21 @@ public class Movie {
     @XmlElementWrapper(name = "actorIdList")
     @XmlElement(name = "actorId")
     private List<Long> actorIdList;
+    @XmlMimeType("application/octet-stream")
     private DataHandler image;
 
     /* Do zdjec NIEAKTUALNE NIEAKTUALNE
     * jest image a jako 'implementacja' dajemy File i potem ImageIO.read('wczytane zdjecie z pliku')
     * */
+
+    public DataHandler loadImageOrDefault(String pathToImage) {
+        File file = new File(pathToImage);
+        if (!file.exists()) {
+            file = new File("/path/to/default/images/no-image.png");
+        }
+        return new DataHandler(new FileDataSource(file));
+    }
+
 
     public Movie(Long id, String title, String director, String releaseDate, String description, MovieType movieType, DataHandler image) {
         this.id = id;
