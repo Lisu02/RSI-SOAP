@@ -83,8 +83,10 @@ public class MovieService implements MovieController {
         if(movieOptional.isPresent()){
             String imagePath = movieOptional.get().getImagePath();
             return Movie.loadImageOrDefault(imagePath);
+        }else {
+            return Movie.loadImageOrDefault("");
         }
-        throw new RuntimeException("No movie at provided id is present");
+        //throw new RuntimeException("No movie at provided id is present");
     }
 
 

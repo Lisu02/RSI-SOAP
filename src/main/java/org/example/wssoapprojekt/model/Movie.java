@@ -35,7 +35,7 @@ public class Movie {
 
     public static DataHandler loadImageOrDefault(String pathToImage) {
         File file = new File(pathToImage);
-        if (!file.exists()) {
+        if (!file.exists() || pathToImage.isBlank()) {
             file = new File("images/shrek.png"); //default zdjecie
         }
         return new DataHandler(new FileDataSource(file));
