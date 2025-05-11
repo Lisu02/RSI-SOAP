@@ -17,7 +17,6 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
-@AllArgsConstructor
 public class Showing {
 
     @XmlElement
@@ -31,6 +30,10 @@ public class Showing {
 
     public Showing(){
         initSeats();
+    }
+    public Showing(Movie movie, String date) {
+        this.movie = movie;
+        this.showingDateAndTime = date;
     }
 
     private void initSeats(){

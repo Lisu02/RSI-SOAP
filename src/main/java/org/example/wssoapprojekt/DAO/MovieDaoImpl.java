@@ -23,7 +23,7 @@ public class MovieDaoImpl implements MovieDao {
             movie2.setActorIdList(List.of(2L,3L,4L));
             Movie movie3 = new Movie(movieDao.counter++, "The Godfather", "Francis Ford Coppola", "1972-03-24", "Crime drama classic.", MovieType.THRILLER, null);
             movie3.setActorIdList(List.of(5L,6L,7L));
-            Movie movie4= new Movie(movieDao.counter++, "Pulp Fiction", "Quentin Tarantino", "1994-10-14", "Cult classic with interwoven stories.", MovieType.CRIME, null);
+            Movie movie4= new Movie(movieDao.counter++, "Pulp Fiction", "Quentin Tarantino", "1994-10-14", "Classic with interwoven stories.", MovieType.CRIME, null);
             movie4.setActorIdList(List.of(8L,9L));
             Movie movie5 = new Movie(movieDao.counter++, "The Matrix", "The Wachowskis", "1999-03-31", "A hacker discovers the shocking truth.", MovieType.SCIENCE_FICTION, null);
             movie5.setActorIdList(List.of(10L,11L));
