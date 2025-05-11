@@ -1,6 +1,7 @@
 package org.example.wssoapprojekt.DAO;
 
 import org.example.wssoapprojekt.model.Actor;
+import org.example.wssoapprojekt.model.Country;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,6 +15,22 @@ public class ActorDaoImpl implements ActorDao{
     public static ActorDaoImpl getActorDaoInstance() {
         if(actorDaoInstance == null){
             actorDaoInstance = new ActorDaoImpl();
+
+            actorDaoInstance.save(new Actor("Leonardo", "DiCaprio", "1974-11-11", Country.USA));
+            actorDaoInstance.save(new Actor("Joseph", "Gordon-Levitt", "1981-02-17", Country.USA));
+            actorDaoInstance.save(new Actor("Marlon", "Brando", "1924-04-03", Country.USA));
+            actorDaoInstance.save(new Actor("Al", "Pacino", "1940-04-25", Country.USA));
+            actorDaoInstance.save(new Actor("Keanu", "Reeves", "1964-09-02", Country.CANADA));
+            actorDaoInstance.save(new Actor("Carrie-Anne", "Moss", "1967-08-21", Country.CANADA));
+            actorDaoInstance.save(new Actor("Kate", "Winslet", "1975-10-05", Country.UK));
+            actorDaoInstance.save(new Actor("Christian", "Bale", "1974-01-30", Country.UK));
+            actorDaoInstance.save(new Actor("Heath", "Ledger", "1979-04-04", Country.AUSTRALIA));
+            actorDaoInstance.save(new Actor("John", "Travolta", "1954-02-18", Country.USA));
+            actorDaoInstance.save(new Actor("Samuel L.", "Jackson", "1948-12-21", Country.USA));
+            actorDaoInstance.save(new Actor("Uma", "Thurman", "1970-04-29", Country.USA));
+            actorDaoInstance.save(new Actor("Morgan", "Freeman", "1937-06-01", Country.USA));
+            actorDaoInstance.save(new Actor("Robert", "De Niro", "1943-08-17", Country.USA));
+            actorDaoInstance.save(new Actor("Natalie", "Portman", "1981-06-09", Country.ISRAEL));
         }
         return actorDaoInstance;
     }

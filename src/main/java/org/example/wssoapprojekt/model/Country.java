@@ -6,5 +6,5 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(name = "Country")
 @XmlEnum
 public enum Country {
-    USA,POLAND,GERMANY,FRANCE,CANADA,MEXICO,CHINA,RUSSIA,JAPAN
+    USA,POLAND,GERMANY,FRANCE,CANADA,MEXICO,CHINA,RUSSIA,JAPAN,UK,AUSTRALIA,ISRAEL
 }
