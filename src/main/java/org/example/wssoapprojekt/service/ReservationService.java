@@ -71,10 +71,12 @@ public class ReservationService implements ReservationController {
     public byte[] getReservationPDF(Long reservationId) {
         try {
             Optional<Reservation> optionalReservation = reservationDao.findById(reservationId);
+            Reservation reservation;
             if (optionalReservation.isEmpty()) {
                 return null;
+            }else{
+                reservation = optionalReservation.get();
             }
-            Reservation reservation = optionalReservation.get();
 
             Document document = new Document();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();

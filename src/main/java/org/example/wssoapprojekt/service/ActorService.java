@@ -25,8 +25,8 @@ public class ActorService implements ActorController {
     @Override
     @WebMethod(operationName = "getActor")
     @WebResult(name = "getActorResponse")
-    public Actor getActor(Long id) {
-        return actorDao.findById(id).get();
+    public Actor getActor(Long actorId) {
+        return actorDao.findById(actorId).get();
     }
 
     @Override

@@ -15,16 +15,19 @@ import java.util.List;
 @MTOM(enabled = true, threshold = 1024)
 public interface ReservationController {
     @WebMethod
-    Reservation createReservation(Long movieId, Reservation reservation);
+    Reservation createReservation(
+            @WebParam(name = "showingId") Long showingId,
+            @WebParam(name = "reservation") Reservation reservation
+    );
 
     @WebMethod
-    void deleteReservation(Long reservationId);
+    void deleteReservation(@WebParam(name = "reservationId")Long reservationId);
 
     @WebMethod
     List<Reservation> findAllReservations();
 
     @WebMethod
-    List<Reservation> findAllReservationsForMovie(Long movieId);
+    List<Reservation> findAllReservationsForMovie(@WebParam(name = "movieId")Long movieId);
 
     @WebMethod(operationName = "getReservationPDF")
     @XmlSchemaType(name = "base64Binary")

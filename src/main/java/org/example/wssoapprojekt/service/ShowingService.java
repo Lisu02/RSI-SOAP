@@ -33,8 +33,8 @@ public class ShowingService implements ShowingController {
     @Override
     @WebMethod(operationName = "getShowing")
     @WebResult(name = "getShowingResponse")
-    public Showing getShowing(Long id) {
-        return showingDao.findById(id).get();
+    public Showing getShowing(Long showingId) {
+        return showingDao.findById(showingId).get();
     }
 
     @Override

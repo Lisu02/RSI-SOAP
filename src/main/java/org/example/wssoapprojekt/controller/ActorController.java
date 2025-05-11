@@ -1,6 +1,7 @@
 package org.example.wssoapprojekt.controller;
 
 import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import org.example.wssoapprojekt.model.Actor;
@@ -15,7 +16,7 @@ public interface ActorController {
     Actor addActor(Actor actor);
 
     @WebMethod
-    Actor getActor(Long id);
+    Actor getActor(@WebParam(name = "actorId")Long actorId);
 
     @WebMethod
     List<Actor> getActorList();

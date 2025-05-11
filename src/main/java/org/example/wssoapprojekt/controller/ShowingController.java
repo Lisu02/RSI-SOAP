@@ -1,6 +1,7 @@
 package org.example.wssoapprojekt.controller;
 
 import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import org.example.wssoapprojekt.model.Showing;
@@ -15,10 +16,10 @@ public interface ShowingController {
     Showing addShowing(Showing showing);
 
     @WebMethod
-    void deleteShowing(Long showingId);
+    void deleteShowing(@WebParam(name = "showingId") Long showingId);
 
     @WebMethod
-    Showing getShowing(Long id);
+    Showing getShowing(@WebParam(name = "showingId") Long showingId);
 
     @WebMethod
     List<Showing> getShowingList();

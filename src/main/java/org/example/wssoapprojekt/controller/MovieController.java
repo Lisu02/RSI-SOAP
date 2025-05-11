@@ -2,6 +2,7 @@ package org.example.wssoapprojekt.controller;
 
 
 import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import org.example.wssoapprojekt.model.Actor;
@@ -17,11 +18,14 @@ public interface MovieController {
     Movie addMovie(Movie movie); // Poprawiono
 
     @WebMethod
-    Movie getMovie(Long id);
+    Movie getMovie(@WebParam(name = "movieId")Long movieId);
 
     @WebMethod
     List<Movie> getMovieList(); // Dodano spowrotem
 
     @WebMethod
-    Movie addActorToMovie(Long actorId, Long movieId);
+    Movie addActorToMovie(
+            @WebParam(name = "actorId")Long actorId,
+            @WebParam(name = "movieId")Long movieId
+    );
 }

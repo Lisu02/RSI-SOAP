@@ -31,8 +31,8 @@ public class MovieService implements MovieController {
     @Override
     @WebMethod(operationName = "getMovie")
     @WebResult(name = "getMovieResponse")
-    public Movie getMovie(Long id) {
-        Optional<Movie> movie = movieDao.findById(id);
+    public Movie getMovie(Long movieId) {
+        Optional<Movie> movie = movieDao.findById(movieId);
         return movie.get();
     }
 
