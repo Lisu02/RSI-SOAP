@@ -17,17 +17,17 @@ public class MovieDaoImpl implements MovieDao {
         if(movieDao == null){
             movieDao = new MovieDaoImpl();
 
-            Movie movie1 = new Movie(movieDao.counter++, "Inception", "Christopher Nolan", "2010-07-16", "A mind-bending thriller.", MovieType.SCIENCE_FICTION, null);
+            Movie movie1 = new Movie(movieDao.counter++, "Inception", "Christopher Nolan", "2010-07-16", "A mind-bending thriller.", MovieType.SCIENCE_FICTION, "/images/diune.png");
             movie1.setActorIdList(List.of(1L,15L));
-            Movie movie2 = new Movie(movieDao.counter++, "The Dark Knight", "Christopher Nolan", "2008-07-18", "Batman faces the Joker.", MovieType.ACTION, null);
+            Movie movie2 = new Movie(movieDao.counter++, "The Dark Knight", "Christopher Nolan", "2008-07-18", "Batman faces the Joker.", MovieType.ACTION, "/images/bullet_train.png");
             movie2.setActorIdList(List.of(2L,3L,4L));
-            Movie movie3 = new Movie(movieDao.counter++, "The Godfather", "Francis Ford Coppola", "1972-03-24", "Crime drama classic.", MovieType.THRILLER, null);
+            Movie movie3 = new Movie(movieDao.counter++, "The Godfather", "Francis Ford Coppola", "1972-03-24", "Crime drama classic.", MovieType.THRILLER, "/images/dumb_and_dumber.png");
             movie3.setActorIdList(List.of(5L,6L,7L));
-            Movie movie4= new Movie(movieDao.counter++, "Pulp Fiction", "Quentin Tarantino", "1994-10-14", "Classic with interwoven stories.", MovieType.CRIME, null);
+            Movie movie4= new Movie(movieDao.counter++, "Pulp Fiction", "Quentin Tarantino", "1994-10-14", "Classic with interwoven stories.", MovieType.CRIME, "/images/shrek.png");
             movie4.setActorIdList(List.of(8L,9L));
-            Movie movie5 = new Movie(movieDao.counter++, "The Matrix", "The Wachowskis", "1999-03-31", "A hacker discovers the shocking truth.", MovieType.SCIENCE_FICTION, null);
+            Movie movie5 = new Movie(movieDao.counter++, "The Matrix", "The Wachowskis", "1999-03-31", "A hacker discovers the shocking truth.", MovieType.SCIENCE_FICTION, "/images/topgun.png");
             movie5.setActorIdList(List.of(10L,11L));
-            Movie movie6 = (new Movie(movieDao.counter++, "Titanic", "James Cameron", "1997-12-19", "Romance on a doomed ship.", MovieType.R0MANCE, null));
+            Movie movie6 = (new Movie(movieDao.counter++, "Titanic", "James Cameron", "1997-12-19", "Romance on a doomed ship.", MovieType.R0MANCE, "/images/ojciec_chrzesnty.jpg"));
             movie6.setActorIdList(List.of(12L,13L,14L));
 
             movieDao.save(movie1);

@@ -24,9 +24,13 @@ public interface ReservationController {
 
     @WebMethod
     void deleteReservation(@WebParam(name = "reservationId")Long reservationId);
+    @WebMethod
+    void updateReservation(@WebParam(name = "reservation") Reservation reservation);
 
     @WebMethod
     List<Reservation> findAllReservations();
+    @WebMethod
+    Reservation findReservation(@WebParam(name = "reservationId")Long reservationId);
 
     @WebMethod
     List<Reservation> findAllReservationsForMovie(@WebParam(name = "movieId")Long movieId);

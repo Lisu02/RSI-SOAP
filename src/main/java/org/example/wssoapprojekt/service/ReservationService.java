@@ -38,14 +38,9 @@ public class ReservationService implements ReservationController {
     @WebMethod(operationName = "createReservation")
     @WebResult(name = "createReservationResponse")
     public Reservation createReservation(Long showingId, Reservation reservation) {
-        System.out.println("Wejście do metody createReservation");
-        System.out.println(showingId);
-        System.out.println(showingDao.findById(showingId).isPresent());
-        System.out.println(reservation.getSeatLocation());
         if(showingDao.findById(showingId).isPresent() && !reservation.getSeatLocation().isEmpty()){
-            System.out.println("Wejście do metody createReservation IF");
             Showing showing = showingDao.findById(showingId).get();
-            reservation.setShowing(showing);
+            reservation.setShowingId(showingId);
             reservationDao.save(reservation);
             showing.makeSeatReservation(reservation.getSeatLocation(),reservation.getReservationId());
         }
@@ -58,8 +53,26 @@ public class ReservationService implements ReservationController {
     public void deleteReservation(Long reservationId) {
         if(reservationDao.findById(reservationId).isPresent()){
             Reservation reservation = reservationDao.findById(reservationId).get();
-            reservation.getShowing().removeAllSeatReservation(reservation);
+
+            Showing showing = showingDao.findById(reservation.getShowingId()).orElseThrow();
+            showing.removeAllSeatReservation(reservation);
             reservationDao.delete(reservationId);
+        }
+    }
+    @Override
+    @WebMethod(operationName = "updateReservation")
+    @WebResult(name = "updateReservationResponse")
+    public void updateReservation(Reservation reservation) {
+        if (reservation != null) {
+            Reservation res = reservationDao.findById(reservation.getReservationId()).orElseThrow();
+            Showing showing = showingDao.findById(res.getShowingId()).orElseThrow();
+
+            showing.removeAllSeatReservation(res);
+
+            res.setSeatLocation(reservation.getSeatLocation());
+            reservationDao.update(res);
+
+            showing.makeSeatReservation(res.getSeatLocation(), res.getReservationId());
         }
     }
 
@@ -68,6 +81,12 @@ public class ReservationService implements ReservationController {
     @WebResult(name = "findAllReservationsResponse")
     public List<Reservation> findAllReservations() {
         return reservationDao.findAll();
+    }
+    @Override
+    @WebMethod(operationName = "findReservation")
+    @WebResult(name = "findReservationResponse")
+    public Reservation findReservation(Long reservationId) {
+        return reservationDao.findById(reservationId).orElse(null);
     }
 
     @Override
@@ -100,7 +119,7 @@ public class ReservationService implements ReservationController {
                         null
                 );
                 showing.setMovie(movie);
-                reservation.setShowing(showing);
+                reservation.setShowingId(showing.getShowingId());
                 LinkedList<SeatLocation> seatLocations = new LinkedList<SeatLocation>();
                 seatLocations.add(new SeatLocation(0,0));
                 seatLocations.add(new SeatLocation(1,1));
@@ -122,11 +141,13 @@ public class ReservationService implements ReservationController {
             title.setSpacingAfter(20);
             document.add(title);
 
+            Showing showing = showingDao.findById(reservation.getShowingId()).orElseThrow();
+
             // Szczegoly rezerwacji
             Font normalFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
             document.add(new Paragraph("Reservation ID: " + reservationId, normalFont));
-            document.add(new Paragraph("Movie title: " + reservation.getShowing().getMovie().getTitle(), normalFont));
-            document.add(new Paragraph("Showing date: " + reservation.getShowing().getShowingDateAndTime(), normalFont));
+            document.add(new Paragraph("Movie title: " + showing.getMovie().getTitle(), normalFont));
+            document.add(new Paragraph("Showing date: " + showing.getShowingDateAndTime(), normalFont));
             document.add(new Paragraph("Reserved seats (in progress): ", normalFont));
 
             document.close();

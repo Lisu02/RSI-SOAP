@@ -2,6 +2,7 @@ package org.example.wssoapprojekt.DAO;
 
 import org.example.wssoapprojekt.model.Movie;
 import org.example.wssoapprojekt.model.Reservation;
+import org.example.wssoapprojekt.model.Showing;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,9 @@ public class ReservationDaoImpl implements ReservationDao{
 
     @Override
     public Reservation save(Reservation reservation) {
-        if(reservation.getShowing() == null || reservation.getShowing().getMovie() == null){
+        ShowingDao showingDao = ShowingDaoImpl.getShowingDaoInstance();
+        Showing showing = showingDao.findById(reservation.getShowingId()).orElse(null);
+        if(showing == null || showing.getMovie() == null){
             return null;
         }
         counter++;
@@ -71,8 +74,10 @@ public class ReservationDaoImpl implements ReservationDao{
 
     @Override
     public List<Reservation> findByMovieId(Long movieId) {
+        ShowingDao showingDao = ShowingDaoImpl.getShowingDaoInstance();
+        //Showing showing = showingDao.findById(reservation.getShowingId()).orElse(null);
         return database.values().stream().toList().stream()
-                .filter(reservation -> Objects.equals(reservation.getShowing().getMovie().getId(), movieId))
+                .filter(reservation -> Objects.equals(showingDao.findById(reservation.getShowingId()).orElse(null).getMovie().getId(), movieId))
                 .toList();
     }
 }

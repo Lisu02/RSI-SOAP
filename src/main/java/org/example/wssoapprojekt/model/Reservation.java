@@ -17,7 +17,7 @@ import java.util.List;
 public class Reservation {
 
     private Long reservationId;
-    private Showing showing;
+    private Long showingId;
     @XmlElementWrapper(name = "seatLocationList")
     @XmlElement(name = "seatLocation")
     private List<SeatLocation> seatLocation;
