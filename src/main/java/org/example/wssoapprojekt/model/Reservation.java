@@ -21,4 +21,7 @@ public class Reservation {
     @XmlElementWrapper(name = "seatLocationList")
     @XmlElement(name = "seatLocation")
     private List<SeatLocation> seatLocation;
+    public Reservation(List<SeatLocation> seatLocation) {
+        this.seatLocation = seatLocation;
+    }
 }

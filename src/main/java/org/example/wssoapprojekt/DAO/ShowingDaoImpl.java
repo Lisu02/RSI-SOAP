@@ -1,7 +1,10 @@
 package org.example.wssoapprojekt.DAO;
 
 import org.example.wssoapprojekt.model.Movie;
+import org.example.wssoapprojekt.model.Reservation;
+import org.example.wssoapprojekt.model.SeatLocation;
 import org.example.wssoapprojekt.model.Showing;
+import org.example.wssoapprojekt.service.ReservationService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +27,13 @@ public class ShowingDaoImpl implements ShowingDao{
             showingDaoImpl.save(new Showing(movies.get(1), "2025-05-14 środa 12:15"));
             showingDaoImpl.save(new Showing(movies.get(1), "2025-05-15 czwartek 18:45"));
 
-            showingDaoImpl.save(new Showing(movies.get(2), "2025-05-16 piątek 20:00"));
+            Showing showing = new Showing(movies.get(2), "2025-05-16 piątek 20:00");
+            showingDaoImpl.save(showing);
+
+            List<SeatLocation> seatLocations = List.of(new SeatLocation(1,1),new SeatLocation(2,2),new SeatLocation(3,3),new SeatLocation(4,4));
+            ReservationService reservationService = new ReservationService();
+            reservationService.createReservation(showing.getShowingId(), new Reservation(seatLocations));
+
             showingDaoImpl.save(new Showing(movies.get(2), "2025-05-17 sobota 14:30"));
 
             showingDaoImpl.save(new Showing(movies.get(3), "2025-05-18 niedziela 17:00"));

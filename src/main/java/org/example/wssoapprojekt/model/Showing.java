@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,6 +35,7 @@ public class Showing {
     public Showing(Movie movie, String date) {
         this.movie = movie;
         this.showingDateAndTime = date;
+        initSeats();
     }
 
     private void initSeats(){
@@ -45,10 +47,14 @@ public class Showing {
     }
 
     public void makeSeatReservation(List<SeatLocation> seatLocationList, Long reservationId){
-        while (seatLocationList.iterator().hasNext()){
-            SeatLocation seatLocation = seatLocationList.iterator().next();
+        System.out.println("Wejście do metody makeSeatReservation: " + seatLocationList);
+        Iterator<SeatLocation> iterator = seatLocationList.iterator();
+        while (iterator.hasNext()){
+            System.out.println("Wejście do metody makeSeatReservation WHILE");
+            SeatLocation seatLocation = iterator.next();
             Integer x = seatLocation.getX();
             Integer y = seatLocation.getY();
+            System.out.println(x + " " + y + " " + reservationId);
             if(seats[x][y] == 0){
                 seats[x][y] = reservationId;
             }

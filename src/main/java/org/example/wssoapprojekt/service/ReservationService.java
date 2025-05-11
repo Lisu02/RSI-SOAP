@@ -34,11 +34,16 @@ public class ReservationService implements ReservationController {
     @WebMethod(operationName = "createReservation")
     @WebResult(name = "createReservationResponse")
     public Reservation createReservation(Long showingId, Reservation reservation) {
+        System.out.println("Wejście do metody createReservation");
+        System.out.println(showingId);
+        System.out.println(showingDao.findById(showingId).isPresent());
+        System.out.println(reservation.getSeatLocation());
         if(showingDao.findById(showingId).isPresent() && !reservation.getSeatLocation().isEmpty()){
+            System.out.println("Wejście do metody createReservation IF");
             Showing showing = showingDao.findById(showingId).get();
             reservation.setShowing(showing);
-            showing.makeSeatReservation(reservation.getSeatLocation(),reservation.getReservationId());
             reservationDao.save(reservation);
+            showing.makeSeatReservation(reservation.getSeatLocation(),reservation.getReservationId());
         }
         return null;
     }
