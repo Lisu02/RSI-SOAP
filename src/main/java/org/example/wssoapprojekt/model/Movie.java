@@ -6,6 +6,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 @XmlRootElement(name = "Movie")
@@ -36,10 +41,20 @@ public class Movie {
     public static DataHandler loadImageOrDefault(String pathToImage) {
         File file = new File(pathToImage);
         if (!file.exists() || pathToImage.isBlank()) {
-            file = new File("images/shrek.png"); //default zdjecie
+            try (InputStream is = Movie.class.getResourceAsStream("/images/shrek.png")) {
+                if (is == null) throw new RuntimeException("Default image not found in classpath");
+
+                // Zapisz tymczasowo, bo DataHandler potrzebuje pliku
+                Path temp = Files.createTempFile("default_shrek", ".png");
+                Files.copy(is, temp, StandardCopyOption.REPLACE_EXISTING);
+                return new DataHandler(new FileDataSource(temp.toFile()));
+            } catch (IOException e) {
+                throw new RuntimeException("Nie można załadować domyślnego obrazka", e);
+            }
         }
         return new DataHandler(new FileDataSource(file));
     }
+
 
 
     public Movie(Long id, String title, String director, String releaseDate, String description, MovieType movieType, String imagePath) {

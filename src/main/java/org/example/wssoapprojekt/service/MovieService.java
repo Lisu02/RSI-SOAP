@@ -19,6 +19,7 @@ import org.example.wssoapprojekt.controller.MovieController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @WebService(endpointInterface = "org.example.wssoapprojekt.controller.MovieController")
 @BindingType(value = jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING)
@@ -71,6 +72,11 @@ public class MovieService implements MovieController {
     @XmlSchemaType(name = "base64Binary")
     @XmlMimeType("image/png")
     public DataHandler getImage(@WebParam(name = "filepath") String filepath) {
+        if(filepath == null){
+            Logger log = Logger.getLogger(this.getClass().getName());
+            log.warning("getImage - filepath jest NULL");
+            return Movie.loadImageOrDefault("");
+        }
         return Movie.loadImageOrDefault(filepath);
     }
 
