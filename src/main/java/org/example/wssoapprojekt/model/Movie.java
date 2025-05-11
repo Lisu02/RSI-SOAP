@@ -7,25 +7,30 @@ import jakarta.xml.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 @XmlRootElement(name = "Movie")
-//@XmlType(propOrder = {"id","title","director","releaseDate","description","movieType","actorList","image"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Movie {
 
     private Long id;
+    @XmlElement(required = true)
     private String title;
     private String director;
-    @XmlSchemaType(name = "dateTime")
-    private LocalDate releaseDate; //Standard od Java 8 (sama data bez godziny)
+    //@XmlSchemaType(name = "dateTime")
+    @XmlElement(required = true)
+    private String releaseDate; //Standard od Java 8 (sama data bez godziny)
+    @XmlElement(required = true)
     private String description;
+    @XmlElement(required = true)
     private MovieType movieType;
-    private List<Actor> actorList;
+    @XmlElementWrapper(name = "actorIdList")
+    @XmlElement(name = "actorId")
+    private List<Long> actorIdList;
     private DataHandler image;
 
     /* Do zdjec NIEAKTUALNE NIEAKTUALNE
     * jest image a jako 'implementacja' dajemy File i potem ImageIO.read('wczytane zdjecie z pliku')
     * */
 
-    public Movie(Long id, String title, String director, LocalDate releaseDate, String description, MovieType movieType, DataHandler image) {
+    public Movie(Long id, String title, String director, String releaseDate, String description, MovieType movieType, DataHandler image) {
         this.id = id;
         this.title = title;
         this.director = director;
@@ -35,12 +40,12 @@ public class Movie {
         this.image = image;
     }
 
-    public Movie(String title, String director, LocalDate releaseDate, String description, MovieType movieType, DataHandler image) {
+    public Movie(String title, String director, String releaseDate, String description, MovieType movieType, DataHandler image) {
         this(0L,title, director, releaseDate,description,movieType,image);
     }
 
     public Movie(){
-        this(0L,"tytul","Andrzej Tralala",LocalDate.of(2002,8,26),"fajny film",MovieType.ACTION,null);
+        this(0L,"tytul","Andrzej Tralala","26-08-2002","fajny film",MovieType.ACTION,null);
     }
 
     public Long getId() {
@@ -67,11 +72,11 @@ public class Movie {
         this.director = director;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -91,12 +96,12 @@ public class Movie {
         this.movieType = movieType;
     }
 
-    public List<Actor> getActorList() {
-        return actorList;
+    public List<Long> getActorList() {
+        return actorIdList;
     }
 
-    public void setActorList(List<Actor> actorList) {
-        this.actorList = actorList;
+    public void setActorIdList(List<Long> actorIdList) {
+        this.actorIdList = actorIdList;
     }
 
     public DataHandler getImage() {

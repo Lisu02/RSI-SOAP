@@ -9,6 +9,16 @@ import java.util.Optional;
 
 public class ActorDaoImpl implements ActorDao{
 
+    private ActorDaoImpl(){}
+
+    public static ActorDaoImpl getActorDaoInstance() {
+        if(actorDaoInstance == null){
+            actorDaoInstance = new ActorDaoImpl();
+        }
+        return actorDaoInstance;
+    }
+
+    private static ActorDaoImpl actorDaoInstance;
     private HashMap<Long,Actor> database = new HashMap<>();
     private Long counter = 0L;
 
@@ -16,7 +26,8 @@ public class ActorDaoImpl implements ActorDao{
     public Actor save(Actor actor) {
         counter++;
         actor.setId(counter);
-        return database.put(counter,actor);
+        database.put(counter,actor);
+        return actor;
     }
 
     @Override

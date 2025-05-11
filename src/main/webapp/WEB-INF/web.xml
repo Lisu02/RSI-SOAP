@@ -4,21 +4,21 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-    <display-name>Cinema Reservation System</display-name>
+<!--    <display-name>Cinema Reservation System</display-name>-->
 
-    <servlet>
-        <servlet-name>CinemaService</servlet-name>
-        <servlet-class>org.example.service.CinemaServiceImpl</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
+<!--    <servlet>-->
+<!--        <servlet-name>CinemaService</servlet-name>-->
+<!--        <servlet-class>org.example.service.CinemaServiceImpl</servlet-class>-->
+<!--        <load-on-startup>1</load-on-startup>-->
+<!--    </servlet>-->
 
-    <servlet-mapping>
-        <servlet-name>CinemaService</servlet-name>
-        <url-pattern>/CinemaService</url-pattern>
-    </servlet-mapping>
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>CinemaService</servlet-name>-->
+<!--        <url-pattern>/CinemaService</url-pattern>-->
+<!--    </servlet-mapping>-->
 
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
+<!--    <session-config>-->
+<!--        <session-timeout>30</session-timeout>-->
+<!--    </session-config>-->
 
 </web-app>

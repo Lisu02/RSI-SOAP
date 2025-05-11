@@ -9,6 +9,16 @@ import java.util.Optional;
 
 public class MovieDaoImpl implements MovieDao {
 
+    private MovieDaoImpl(){}
+
+    public static MovieDaoImpl getMovieDaoInstance(){
+        if(movieDao == null){
+            movieDao = new MovieDaoImpl();
+        }
+        return movieDao;
+    }
+
+    private static MovieDaoImpl movieDao;
     private HashMap<Long, Movie> database = new HashMap<>();
     private Long counter = 0L;
 
@@ -23,7 +33,8 @@ public class MovieDaoImpl implements MovieDao {
         }
         counter++;
         movie.setId(counter);
-        return database.put(counter,movie);
+        database.put(counter,movie);
+        return movie;
     }
 
     @Override
@@ -36,7 +47,8 @@ public class MovieDaoImpl implements MovieDao {
         if(databaseMovie == null){
             throw new RuntimeException("Movie for update does not exist");
         }
-        return database.replace(movieId, newMovie);
+        database.replace(movieId, newMovie);
+        return newMovie;
     }
 
     @Override
