@@ -1,5 +1,6 @@
 package org.example.wssoapprojekt.controller;
 
+import jakarta.jws.HandlerChain;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @WebService(name = "ActorService")
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL)
+@HandlerChain(file = "handler-chain.xml")
 public interface ActorController {
 
     @WebMethod
