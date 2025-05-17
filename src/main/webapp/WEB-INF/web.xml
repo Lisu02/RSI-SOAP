@@ -4,21 +4,34 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-<!--    <display-name>Cinema Reservation System</display-name>-->
+    <security-constraint>
+        <display-name>WebServiceSecurity</display-name>
 
-<!--    <servlet>-->
-<!--        <servlet-name>CinemaService</servlet-name>-->
-<!--        <servlet-class>org.example.service.CinemaServiceImpl</servlet-class>-->
-<!--        <load-on-startup>1</load-on-startup>-->
-<!--    </servlet>-->
+        <web-resource-collection>
+            <web-resource-name>Authorized users only</web-resource-name>
+            <url-pattern>/ExampleWSService</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+        </web-resource-collection>
 
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>CinemaService</servlet-name>-->
-<!--        <url-pattern>/CinemaService</url-pattern>-->
-<!--    </servlet-mapping>-->
+<!--        <auth-constraint>-->
+<!--            <role-name>user</role-name>-->
+<!--        </auth-constraint>-->
 
-<!--    <session-config>-->
-<!--        <session-timeout>30</session-timeout>-->
-<!--    </session-config>-->
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+
+    </security-constraint>
+
+<!--    &lt;!&ndash; BASIC authorization &ndash;&gt;-->
+<!--    <login-config>-->
+<!--        <auth-method>BASIC</auth-method>-->
+<!--    </login-config>-->
+
+<!--    &lt;!&ndash; Definition of role &ndash;&gt;-->
+<!--    <security-role>-->
+<!--        <role-name>user</role-name>-->
+<!--    </security-role>-->
 
 </web-app>
